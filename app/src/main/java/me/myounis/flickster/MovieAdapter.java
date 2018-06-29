@@ -9,14 +9,25 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.ArrayList;
 
+import me.myounis.flickster.models.Config;
 import me.myounis.flickster.models.Movie;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
+
     // list of movies
     ArrayList<Movie> movies;
+
+    /* config needed for the image urls */
+    Config config;
+
+    // Context for the file
+    Context context;
 
     // initialize with the list
     public MovieAdapter(ArrayList<Movie> movies)
@@ -24,10 +35,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         this.movies = movies;
     }
 
+    public void setConfig(Config config) {
+        this.config = config;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        Context context = parent.getContext();
+        context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         // create the view using the layout of item_movie
         View movieView = inflater.inflate(R.layout.item_movie, parent, false);
@@ -43,7 +58,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         viewHolder.tvTitle.setText(movie.getTitle());
         viewHolder.tvOverview.setText(movie.getOverview());
 
-        // TODO set the image using glide
+        // build url for poster image
+        String ImageUrl = config.getImageUrl(config.getPosterSize(), movie.getPosterPath());
+
+        // load image using glide
+        Glide.with(context)
+                .load(ImageUrl)
+
+                .apply(
+                        RequestOptions.placeholderOf(R.drawable.flicks_movie_placeholder)
+                                .error(R.drawable.flicks_movie_placeholder)
+                                .fitCenter()
+                )
+
+                .into(viewHolder.ivPosterImage);
 
 
     }

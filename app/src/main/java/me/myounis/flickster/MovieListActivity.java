@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+import me.myounis.flickster.models.Config;
 import me.myounis.flickster.models.Movie;
 
 public class MovieListActivity extends AppCompatActivity {
@@ -33,10 +34,7 @@ public class MovieListActivity extends AppCompatActivity {
     public final static String TAG = "MovieListActivity";
     // instance fields
     AsyncHttpClient client;
-    // base url for loading images
-    String imageBaseURL;
-    // size of the poster to grab
-    String posterSize;
+
 
     // make a list of movies
     ArrayList<Movie> movies;
@@ -45,6 +43,9 @@ public class MovieListActivity extends AppCompatActivity {
     RecyclerView rvMovies;
     // the adapter wired to the recycler view
     MovieAdapter adapter;
+
+    // image configuration
+    Config config;
 
 
 
@@ -136,13 +137,10 @@ public class MovieListActivity extends AppCompatActivity {
             {
                 try
                 {
-                    JSONObject images = response.getJSONObject("images");
-                    // grab the base URL from the parsing
-                    imageBaseURL = images.getString("secure_base_url");
-                    // get the posterSize as well
-                    JSONArray posterSizes = images.getJSONArray("poster_sizes");
-                    posterSize = posterSizes.optString(3, "w342");
+                    config = new Config(response);
                     Log.i(TAG, String.format("Loaded configuration"));
+                    // pass config to the adapter
+                    adapter.setConfig(config);
                     // get the list of movies that are now playing
                     getNowPlaying();
                 }
