@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import me.myounis.flickster.models.Config;
 import me.myounis.flickster.models.Movie;
 
@@ -69,6 +70,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                         RequestOptions.placeholderOf(R.drawable.flicks_movie_placeholder)
                                 .error(R.drawable.flicks_movie_placeholder)
                                 .fitCenter()
+                                .transform(new RoundedCornersTransformation(15,0))
                 )
 
                 .into(viewHolder.ivPosterImage);
