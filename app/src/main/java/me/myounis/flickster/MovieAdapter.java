@@ -70,6 +70,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                         RequestOptions.placeholderOf(R.drawable.flicks_movie_placeholder)
                                 .error(R.drawable.flicks_movie_placeholder)
                                 .fitCenter()
+                                // functionality for rounded corners
                                 .transform(new RoundedCornersTransformation(15,0))
                 )
 
