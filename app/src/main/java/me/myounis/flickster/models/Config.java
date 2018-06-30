@@ -11,6 +11,9 @@ public class Config {
     // size of the poster to grab
     String posterSize;
 
+    // the backdrop size
+    String backdropSize;
+
     public Config(JSONObject response) throws JSONException
     {
         JSONObject images = response.getJSONObject("images");
@@ -19,6 +22,9 @@ public class Config {
         // get the posterSize as well
         JSONArray posterSizes = images.getJSONArray("poster_sizes");
         posterSize = posterSizes.optString(3, "w342");
+        // parse for the background sizes
+        JSONArray backdropSizeOptions = images.getJSONArray("backdrop_sizes");
+        backdropSize = backdropSizeOptions.optString(1, "w780");
 
     }
 
@@ -34,5 +40,9 @@ public class Config {
 
     public String getPosterSize() {
         return posterSize;
+    }
+
+    public String getBackdropSize() {
+        return backdropSize;
     }
 }
