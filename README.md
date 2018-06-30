@@ -27,7 +27,7 @@ The following **optional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-![Walkthrough](flicksterwalkthrough.gif)
+![Walkthrough](flicksterwalkthrough2.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
